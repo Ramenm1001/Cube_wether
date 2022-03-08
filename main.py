@@ -11,6 +11,7 @@ def main():
             "ну и еще немного": 200}
     return json.dumps(resp)
 
+
 @app.route('/test'):
 def test():
     return "OK"
