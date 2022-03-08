@@ -12,7 +12,7 @@ def main():
     return json.dumps(resp)
 
 
-@app.route('/test'):
+@app.route('/test')
 def test():
     return "OK"
 
