@@ -23,7 +23,16 @@ def postjson():
 
     with open('123.json', 'w') as file:
         json.dump(file_json, file)
+
     return jsonify(request.json) 
+
+
+@app.route('/save')
+def test():
+    with open('123.txt', 'w') as file:
+        file.write("123321")
+    file.close()
+    return "OK"
 
 
 if __name__ == '__main__':
