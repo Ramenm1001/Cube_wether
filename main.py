@@ -28,7 +28,7 @@ def postjson():
 
 
 @app.route('/save')
-def test():
+def save():
     with open('123.txt', 'w') as file:
         file.write("123321")
     file.close()
