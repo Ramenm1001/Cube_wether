@@ -19,7 +19,12 @@ def test():
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
+    file_json = jsonify(request.json)
+
+    with open('123.json', 'w') as file:
+        json.dump(file_json, file)
     return jsonify(request.json) 
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
