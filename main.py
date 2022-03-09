@@ -6,9 +6,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    resp = {"температура": 15,
-            "освещенность": 150,
-            "ну и еще немного": 200}
+    resp = {"temperature": 15,
+            "light": 150,
+            "smth": 200}
     return json.dumps(resp)
 
 
