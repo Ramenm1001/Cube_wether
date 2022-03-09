@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def main():
+def main(methods=['GET']):
     resp = {"temperature": 15,
             "light": 150,
             "smth": 200}
