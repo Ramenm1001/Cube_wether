@@ -29,7 +29,7 @@ def postjson():
 
     with open('123.json', 'w') as file:
         json.dump(file_json, file)
-
+    some_data = jsonify(request.json) 
     return jsonify(request.json) 
 
 
