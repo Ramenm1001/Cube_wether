@@ -26,11 +26,8 @@ def test():
 @app.route('/postjson', methods=['POST'])
 def postjson():
     file_json = jsonify(request.json)
-
-    with open('123.json', 'w') as file:
-        json.dump(file_json, file)
     some_data = jsonify(request.json) 
-    return jsonify(request.json) 
+    return some_data
 
 
 @app.route('/savetxt')
