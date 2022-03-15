@@ -11,7 +11,10 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 DATABASE_URL = os.environ['postgres://eejfkwjeffaiyc:2cfad4401829e07ddc16bcb439be7be2187ed7237469aec6c0037a06993b0558@ec2-34-247-151-118.eu-west-1.compute.amazonaws.com:5432/d6gqkisgrtebp3']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
-some_data = "155"
+if conn:
+    some_data = "155"
+else:
+    some_data = "55"
 
 @app.route('/')
 def main(methods=['GET']):
