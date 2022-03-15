@@ -10,7 +10,11 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-
+if conn:
+    some_data = "155"
+else:
+    some_data = "55"
+    
 @app.route('/')
 def main(methods=['GET']):
     resp = {"temperature": 15,
