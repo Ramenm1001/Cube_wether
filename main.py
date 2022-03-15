@@ -27,16 +27,15 @@ def main(methods=['GET']):
 
 @app.route('/data')
 def data():
-    global some_data
     global data
-    return " ".join(data)
+    return data
 
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
     file_json = jsonify(request.json)
     global data
-    data.append(request.json)
+    data = jsonify(request.json)
     return
 
 
