@@ -33,7 +33,7 @@ def test():
 
 
 @app.route('/data')
-def test():
+def data():
     global some_data
     global data
     return " ".join(data)
