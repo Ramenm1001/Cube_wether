@@ -36,7 +36,7 @@ def postjson():
     file_json = jsonify(request.json)
     global data
     data = jsonify(request.json)
-    return
+    return jsonify(request.json)
 
 
 @app.route('/savetxt')
