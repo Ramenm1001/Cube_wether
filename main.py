@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+some_data = "155"
 
 @app.route('/')
 def main(methods=['GET']):
@@ -18,7 +19,8 @@ def main(methods=['GET']):
 
 @app.route('/test')
 def test():
-    return "OK"
+    global some_data
+    return some_data
 
 
 @app.route('/postjson', methods=['POST'])
