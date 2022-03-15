@@ -16,6 +16,7 @@ except Exception as e:
     conn_data = "55"
 
 data = []
+conn_data = "1"
 
 @app.route('/')
 def main(methods=['GET']):
