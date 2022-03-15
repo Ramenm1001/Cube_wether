@@ -34,11 +34,10 @@ def data():
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
-    global some_data
     file_json = jsonify(request.json)
     global data
-    data.append(jsonify(request.json))
-    return some_data
+    data.append(request.json)
+    return
 
 
 @app.route('/savetxt')
