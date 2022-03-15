@@ -11,10 +11,12 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 if conn:
-    some_data = "155"
+    conn_data = "155"
 else:
-    some_data = "55"
-    
+    conn_data = "55"
+
+data = []
+
 @app.route('/')
 def main(methods=['GET']):
     resp = {"temperature": 15,
@@ -25,15 +27,23 @@ def main(methods=['GET']):
 
 @app.route('/test')
 def test():
+    global conn_data
+    return conn_data
+
+
+@app.route('/data')
+def test():
     global some_data
-    return some_data
+    global data
+    return " ".join(data)
 
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
     global some_data
     file_json = jsonify(request.json)
-    some_data = jsonify(request.json) 
+    global data
+    data.append(jsonify(request.json))
     return some_data
 
 
