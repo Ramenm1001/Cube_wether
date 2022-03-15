@@ -25,13 +25,6 @@ def main(methods=['GET']):
             "smth": 200}
     return json.dumps(resp)
 
-
-@app.route('/test')
-def test():
-    global conn_data
-    return conn_data
-
-
 @app.route('/data')
 def data():
     global some_data
