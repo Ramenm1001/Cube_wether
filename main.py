@@ -50,8 +50,8 @@ def savetxt():
 @app.route('/postdata', methods=['POST']))
 def postdata():
     global test_data
-    test_data = request
-    return request
+    test_data = request.json
+    return test_data
 
 
 @app.route('/testdata')
