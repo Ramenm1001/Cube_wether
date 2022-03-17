@@ -17,6 +17,7 @@ except Exception as e:
 
 data = []
 conn_data = "1"
+test_data = "Ничего"
 
 @app.route('/')
 def main(methods=['GET']):
@@ -46,6 +47,17 @@ def savetxt():
     file.close()
     return "OK"
 
+@app.route('/postdata', methods=['POST']))
+def postdata():
+    global test_data
+    test_data = request
+    return request
+
+
+@app.route('/testdata')
+def testdata():
+    global test_data
+    return test_data
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
