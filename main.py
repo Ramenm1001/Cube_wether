@@ -21,9 +21,15 @@ test_data = "Ничего"
 
 @app.route('/')
 def main(methods=['GET']):
-    resp = {"temperature": 15,
-            "light": 150,
-            "smth": 200}
+    resp = {
+            "AirSpeed": "0.5",
+            "CO2": "15",
+            "Light": "12345",
+            "LightRange": "111",
+            "Temperature": "23.4",
+            "humidity": "30",
+            "quartzization": "False"
+            }
     return json.dumps(resp)
 
 @app.route('/data')
