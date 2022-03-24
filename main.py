@@ -33,7 +33,7 @@ def main(methods=['GET']):
     return json.dumps(resp)
 
 @app.route('/data')
-def data():
+def get_data():
     global data
     return data
 
