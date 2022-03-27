@@ -53,6 +53,13 @@ def savetxt():
     file.close()
     return "OK"
 
+@app.route('/opentxt')
+def savetxt():
+    txt = ""
+    for i in open('123.txt', 'r'):
+        txt += i
+    return txt
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
