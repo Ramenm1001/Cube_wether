@@ -54,7 +54,7 @@ def savetxt():
     return "OK"
 
 @app.route('/opentxt')
-def savetxt():
+def opentxt():
     txt = ""
     for i in open('123.txt', 'r'):
         txt += i
