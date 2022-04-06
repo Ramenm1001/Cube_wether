@@ -47,8 +47,8 @@ def get_data1():
 def get_organization_list():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT name from public."Organization"')
-    return jsonify(x[0] for x in cur.fetchall())
+    cur.execute('SELECT name FROM public."Organization"')
+    return jsonify([x[0] for x in cur.fetchall()])
 
 
 @app.route('/postjson', methods=['POST'])
@@ -58,12 +58,8 @@ def postjson():
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # just for testing. if-branch is enough for correct work with correct server request structure
-    if "Organization_name" in json_as_dict:
-        org_name = json_as_dict["Organization_name"]
-    else:
-        org_name = "Ivan home"
-
+    # getting organization name from JSON
+    org_name = json_as_dict["Organization_name"]
     # old code for correct return data at /data
     global data
     data = jsonify(json_as_dict)
