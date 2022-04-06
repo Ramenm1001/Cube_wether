@@ -8,18 +8,14 @@ app = Flask(__name__)
 CORS(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-try:
 
-    DATABASE_URL = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    conn_data = "155"
-except Exception as e:
-    conn_data = "55"
+def get_db_connection():
+    return psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
+
 
 data = []
 data1 = []
-conn_data = "1"
-test_data = "Ничего"
+
 
 @app.route('/')
 def main(methods=['GET']):
@@ -34,10 +30,12 @@ def main(methods=['GET']):
             }
     return json.dumps(resp)
 
+
 @app.route('/data')
 def get_data():
     global data
     return data
+
 
 @app.route('/data1')
 def get_data1():
@@ -47,10 +45,50 @@ def get_data1():
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
-    file_json = jsonify(request.json)
+    json_as_dict = request.json
+    # open connect for insert new data in DB
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # just for testing. if-branch is enough for correct work with correct server request structure
+    if "Organization_name" in json_as_dict:
+        org_name = json_as_dict["Organization_name"]
+    else:
+        org_name = "Ivan home"
+
+    # old code for correct return data at /data
     global data
-    data = jsonify(request.json)
-    return jsonify(request.json)
+    data = jsonify(json_as_dict)
+
+    # all commented prints just for better code understanding
+    # print("0", json_as_dict)
+    # key is a name of room OR name of organization
+    for key in json_as_dict:
+        sub_dict = json_as_dict[key]
+        # print("1", sub_dict)
+        # if key is room name its key of dict with readings values
+        if type(sub_dict) is dict:
+            # finding id of sensor from room name and organization name
+            cur.execute('SELECT id_sensor '
+                        'FROM public."Sensor" INNER JOIN public."Organization" '
+                        'on public."Sensor".organization_id = public."Organization".id_organization '
+                        'WHERE public."Sensor".name = ' + '\''+key+'\'' +
+                        ' and public."Organization".name = ' + '\''+org_name+'\'')
+            id_sensor = cur.fetchall()
+            # print("2", *id_sensor[0])
+            # inserting data in DB (Sensor_Readings table; id is autoincrement)
+            cur.execute('INSERT INTO public."Sensor_Readings" '
+                        '(Carbon_Monoxide, Humidity, Light_Lux, Methane, Smoke, Temperature_C, Sensor_id) '
+                        'VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                        (sub_dict['CarbonMonoxide'], sub_dict['Humidity'], sub_dict['LightLux'], sub_dict['Methane'],
+                         sub_dict['Smoke'], sub_dict['TemperatureC'], *id_sensor[0]))
+    # all changes approve
+    conn.commit()
+    # and close connection
+    cur.close()
+    conn.close()
+    # old code for correct return data at /data
+    return data
 
 
 @app.route('/postjson1', methods=['POST'])
