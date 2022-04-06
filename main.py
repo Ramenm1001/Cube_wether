@@ -54,7 +54,7 @@ def postjson():
 
 
 @app.route('/postjson1', methods=['POST'])
-def postjson():
+def postjson1():
     file_json = jsonify(request.json)
     global data1
     data1 = jsonify(request.json)
