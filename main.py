@@ -43,6 +43,14 @@ def get_data1():
     return data1
 
 
+@app.route('/organization_list')
+def get_organization_list():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT name from public."Organization"')
+    return (x[0] for x in cur.fetchall())
+
+
 @app.route('/postjson', methods=['POST'])
 def postjson():
     json_as_dict = request.json
@@ -106,12 +114,14 @@ def savetxt():
     file.close()
     return "OK"
 
+
 @app.route('/opentxt')
 def opentxt():
     txt = ""
     for i in open('123.txt', 'r'):
         txt += i
     return txt
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
