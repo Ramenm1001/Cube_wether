@@ -9,6 +9,7 @@ CORS(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 try:
+
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     conn_data = "155"
@@ -16,6 +17,7 @@ except Exception as e:
     conn_data = "55"
 
 data = []
+data1 = []
 conn_data = "1"
 test_data = "Ничего"
 
@@ -37,12 +39,25 @@ def get_data():
     global data
     return data
 
+@app.route('/data1')
+def get_data1():
+    global data1
+    return data1
+
 
 @app.route('/postjson', methods=['POST'])
 def postjson():
     file_json = jsonify(request.json)
     global data
     data = jsonify(request.json)
+    return jsonify(request.json)
+
+
+@app.route('/postjson1', methods=['POST'])
+def postjson():
+    file_json = jsonify(request.json)
+    global data1
+    data1 = jsonify(request.json)
     return jsonify(request.json)
 
 
