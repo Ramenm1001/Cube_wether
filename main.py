@@ -48,7 +48,7 @@ def get_organization_list():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT name from public."Organization"')
-    return (x[0] for x in cur.fetchall())
+    return jsonify(x[0] for x in cur.fetchall())
 
 
 @app.route('/postjson', methods=['POST'])
