@@ -19,15 +19,19 @@ data1 = []
 
 @app.route('/')
 def main(methods=['GET']):
-    resp = {
-            "AirSpeed": "0.5",
-            "CO2": "15",
-            "Light": "12345",
-            "LightRange": "111",
-            "Temperature": "23.4",
-            "humidity": "30",
-            "quartzization": "False"
-            }
+    resp = {"Organization_name":"Ivan home",
+            "Room_1":{"CarbonMonoxide":7,
+                      "Humidity":9.000001,
+                      "LightLux":319.47,
+                      "Methane":17,
+                      "Smoke":30,
+                      "TemperatureC":30.7},
+            "Room_2":{"CarbonMonoxide":0,
+                      "Humidity":0,
+                      "LightLux":0,
+                      "Methane":0,
+                      "Smoke":0,
+                      "TemperatureC":0}}
     return json.dumps(resp)
 
 
